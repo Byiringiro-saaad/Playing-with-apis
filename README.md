@@ -1,12 +1,12 @@
 # Saad Job Board 🌟
 
-A modern, responsive job search platform designed specifically for East African markets, built with vanilla JavaScript and deployed on Netlify.
+A modern, responsive job search platform designed specifically for East African markets.
 
 **Live Demo:** [https://byiringiro-saad-job-posts.netlify.app/](https://byiringiro-saad-job-posts.netlify.app/)
 
 ## 🎯 Project Overview
 
-Saad Job Board is a comprehensive job search application that connects job seekers with opportunities across East Africa and beyond. The platform features an intuitive interface, advanced filtering capabilities, and real-time job data from a global jobs API.
+Saad Job Board is a job search website that connects job seekers with opportunities across East Africa and beyond. The platform features an advanced filtering capabilities, and real-time job data from a global jobs API.
 
 ## 🌍 Societal Impact & Value
 
@@ -45,13 +45,6 @@ Saad Job Board is a comprehensive job search application that connects job seeke
 - **Pagination**: Efficient browsing through large result sets
 - **Loading States**: Clear feedback during API requests
 
-### **Professional Interface**
-
-- **Modern UI/UX**: Clean, professional design following modern web standards
-- **Accessibility**: Keyboard navigation and screen reader friendly
-- **Performance Optimized**: Fast loading times and smooth interactions
-- **Error Handling**: Graceful handling of API errors and quota limits
-
 ## 🛠️ Technical Stack
 
 ### **Frontend Technologies**
@@ -67,21 +60,13 @@ Saad Job Board is a comprehensive job search application that connects job seeke
 - **RESTful Architecture**: Clean API integration with proper error handling
 - **Real-Time Data**: Live job listings with up-to-date information
 
-### **Deployment & Hosting**
-
-- **Netlify**: Static site hosting with automatic deployments
-- **CDN**: Global content delivery for fast loading worldwide
-- **HTTPS**: Secure connections for all users
-
 ## 🚀 Deployment on Netlify
 
 ### **Why Netlify?**
 
-- **Zero Configuration**: Automatic builds and deployments from Git
 - **Global CDN**: Fast loading times for users worldwide
 - **Free Tier**: Generous free hosting for personal projects
 - **Custom Domains**: Easy domain management and SSL certificates
-- **Form Handling**: Built-in form processing capabilities
 
 ### **Deployment Process**
 
@@ -134,78 +119,15 @@ The application is live at: [https://byiringiro-saad-job-posts.netlify.app/](htt
 - **Tablet**: 768px to 1199px
 - **Mobile**: Below 768px
 
-## 🎨 Design Philosophy
-
-### **User-Centered Design**
-
-- **Intuitive Navigation**: Easy-to-use interface for all skill levels
-- **Visual Hierarchy**: Clear information architecture
-- **Accessibility**: WCAG compliant design principles
-- **Performance**: Fast loading and smooth interactions
-
-### **East African Context**
-
-- **Cultural Sensitivity**: Design considerations for local users
-- **Language Support**: English interface with potential for localization
-- **Connectivity**: Optimized for varying internet speeds
-
-## 🔮 Future Enhancements
-
-### **Planned Features**
-
-- **User Accounts**: Save searches and favorite jobs
-- **Email Notifications**: Job alerts for new opportunities
-- **Multi-language Support**: Swahili and other local languages
-- **Advanced Analytics**: Job market insights and trends
-- **Mobile App**: Native iOS and Android applications
-
-### **Technical Improvements**
-
-- **PWA Support**: Progressive Web App capabilities
-- **Offline Mode**: Basic functionality without internet
-- **Performance Optimization**: Further speed improvements
-- **SEO Enhancement**: Better search engine visibility
-
-## 🤝 Contributing
-
-This project is open for contributions! Whether you're a developer, designer, or job market expert, your input is valuable.
-
-### **How to Contribute**
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
-### **Areas for Contribution**
-
-- **UI/UX Improvements**: Design enhancements and user experience
-- **Feature Development**: New functionality and capabilities
-- **Bug Fixes**: Issue resolution and code improvements
-- **Documentation**: Better documentation and guides
-- **Localization**: Translation and cultural adaptation
-
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
 
 ## 👨‍💻 Developer
 
-**Saad Byiringiro**
+**Byiringiro Saad**
 
 - **GitHub**: [@byiringiro-saad](https://github.com/byiringiro-saad)
-- **LinkedIn**: [Saad Byiringiro](https://www.linkedin.com/in/saad-byiringiro/)
-- **Portfolio**: [Personal Website](https://byiringiro-saad.netlify.app/)
-
-## 🙏 Acknowledgments
-
-- **RapidAPI**: For providing the Jobs API 14 service
-- **Netlify**: For hosting and deployment services
-- **East African Community**: For inspiration and regional focus
-- **Open Source Community**: For tools and libraries used in development
-
----
+- **LinkedIn**: [Saad Byiringiro](https://www.linkedin.com/in/byiringiro-saad/)
 
 **Built with ❤️ for East Africa and beyond**
-
-_Last updated: December 2024_
