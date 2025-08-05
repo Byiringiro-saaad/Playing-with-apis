@@ -594,6 +594,12 @@ class JobBoard {
       if (!response.ok) {
         const errorText = await response.text();
         console.error("API Error Response:", errorText);
+
+        // Check if it's a quota exceeded error
+        if (errorText.includes("exceeded") && errorText.includes("quota")) {
+          throw new Error("QUOTA_EXCEEDED");
+        }
+
         throw new Error(
           `Failed to fetch jobs: ${response.status} ${response.statusText}`
         );
@@ -617,11 +623,22 @@ class JobBoard {
       this.hideLoading();
     } catch (error) {
       console.error("Error loading jobs:", error);
-      this.showError();
+
+      if (error.message === "QUOTA_EXCEEDED") {
+        this.showQuotaExceededError();
+      } else {
+        this.showError();
+      }
     }
   }
 
   showLoading() {
+    // Clear any existing countdown interval
+    if (this.countdownInterval) {
+      clearInterval(this.countdownInterval);
+      this.countdownInterval = null;
+    }
+
     document.getElementById("loadingState").style.display = "block";
     document.getElementById("errorState").style.display = "none";
     document.getElementById("jobsList").style.display = "none";
@@ -637,6 +654,81 @@ class JobBoard {
     document.getElementById("loadingState").style.display = "none";
     document.getElementById("errorState").style.display = "block";
     document.getElementById("jobsList").style.display = "none";
+  }
+
+  showQuotaExceededError() {
+    const errorState = document.getElementById("errorState");
+    const timeToNextMonth = this.getTimeToNextMonth();
+
+    errorState.innerHTML = `
+      <div class="quota-error">
+        <div class="quota-icon">📊</div>
+        <h3>API Quota Exceeded</h3>
+        <p>We've reached our monthly API request limit for the Jobs API.</p>
+        <p>This is a limitation of the free tier plan we're using for this demo.</p>
+        <div class="quota-counter">
+          <p>Quota resets in:</p>
+          <div class="countdown" id="countdown">
+            <div class="countdown-item">
+              <span class="countdown-number" id="days">${timeToNextMonth.days}</span>
+              <span class="countdown-label">Days</span>
+            </div>
+            <div class="countdown-item">
+              <span class="countdown-number" id="hours">${timeToNextMonth.hours}</span>
+              <span class="countdown-label">Hours</span>
+            </div>
+            <div class="countdown-item">
+              <span class="countdown-number" id="minutes">${timeToNextMonth.minutes}</span>
+              <span class="countdown-label">Minutes</span>
+            </div>
+            <div class="countdown-item">
+              <span class="countdown-number" id="seconds">${timeToNextMonth.seconds}</span>
+              <span class="countdown-label">Seconds</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.getElementById("loadingState").style.display = "none";
+    errorState.style.display = "block";
+    document.getElementById("jobsList").style.display = "none";
+    document.getElementById("pagination").style.display = "none";
+
+    // Start the countdown timer
+    this.startCountdown();
+  }
+
+  getTimeToNextMonth() {
+    const now = new Date();
+    const nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+    const timeDiff = nextMonth - now;
+
+    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+    return { days, hours, minutes, seconds };
+  }
+
+  startCountdown() {
+    const updateCountdown = () => {
+      const timeToNextMonth = this.getTimeToNextMonth();
+
+      document.getElementById("days").textContent = timeToNextMonth.days;
+      document.getElementById("hours").textContent = timeToNextMonth.hours;
+      document.getElementById("minutes").textContent = timeToNextMonth.minutes;
+      document.getElementById("seconds").textContent = timeToNextMonth.seconds;
+    };
+
+    // Update immediately
+    updateCountdown();
+
+    // Update every second
+    this.countdownInterval = setInterval(updateCountdown, 1000);
   }
 
   renderJobs() {

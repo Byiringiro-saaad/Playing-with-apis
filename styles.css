@@ -295,6 +295,79 @@ body {
   margin: 20px 0;
 }
 
+/* Quota Exceeded Error Styles */
+.quota-error {
+  text-align: center;
+  padding: 40px;
+  background: white;
+  color: #333;
+  border-radius: 12px;
+  margin: 20px 0;
+  border: 2px solid #e1e5e9;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.quota-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.quota-error h3 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #1a1a1a;
+}
+
+.quota-error p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 12px;
+  color: #64748b;
+}
+
+.quota-counter {
+  margin: 32px 0;
+  padding: 24px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e1e5e9;
+}
+
+.quota-counter p {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  color: #1a1a1a;
+}
+
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 80px;
+}
+
+.countdown-number {
+  font-size: 32px;
+  font-weight: 700;
+  color: #6366f1;
+}
+
+.countdown-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748b;
+  margin-top: 4px;
+}
+
 /* Modal Styles */
 .modal-overlay {
   position: fixed;
@@ -486,6 +559,31 @@ body {
 
   .filters-panel.active {
     right: 0;
+  }
+
+  /* Mobile responsive countdown */
+  .countdown {
+    gap: 12px;
+  }
+
+  .countdown-item {
+    min-width: 60px;
+  }
+
+  .countdown-number {
+    font-size: 24px;
+  }
+
+  .countdown-label {
+    font-size: 12px;
+  }
+
+  .quota-error {
+    padding: 24px 16px;
+  }
+
+  .quota-counter {
+    padding: 16px;
   }
 }
 
