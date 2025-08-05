@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Board</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Job Board</h1>
+
+        <div class="search-bar">
+          <div class="search-input">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Search by job title, company, keywords"
+            />
+          </div>
+          <div class="location-select">
+            <select id="locationSelect">
+              <option value="anywhere">Anywhere</option>
+              <option value="United States">United States</option>
+              <option value="New York">New York</option>
+              <option value="California">California</option>
+              <option value="Remote">Remote</option>
+            </select>
+          </div>
+          <button class="filters-btn" id="filtersBtn">
+            Filters <span class="badge" id="filterCount">0</span>
+          </button>
+        </div>
+
+        <div class="filter-tags" id="filterTags">
+          <a href="#" class="clear-all" id="clearAll">Clear All</a>
+        </div>
+      </div>
+
+      <!-- Filters Panel -->
+      <div class="filters-panel" id="filtersPanel">
+        <div class="filters-header">
+          <h3>Advanced Filters</h3>
+          <button class="close-filters" id="closeFilters">×</button>
+        </div>
+
+        <div class="filters-content">
+          <div class="filter-section">
+            <h4>Employment Type</h4>
+            <div class="checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="fulltime" value="fulltime" checked />
+                <span>Full Time</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="parttime" value="parttime" checked />
+                <span>Part Time</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="intern" value="intern" checked />
+                <span>Internship</span>
+              </label>
+              <label class="checkbox-label">
+                <input
+                  type="checkbox"
+                  id="contractor"
+                  value="contractor"
+                  checked
+                />
+                <span>Contractor</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h4>Remote Options</h4>
+            <div class="radio-group">
+              <label class="radio-label">
+                <input
+                  type="radio"
+                  name="remoteOnly"
+                  id="remoteAny"
+                  value="false"
+                  checked
+                />
+                <span>Any (Remote & On-site)</span>
+              </label>
+              <label class="radio-label">
+                <input
+                  type="radio"
+                  name="remoteOnly"
+                  id="remoteOnly"
+                  value="true"
+                />
+                <span>Remote Only</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h4>Location Settings</h4>
+            <div class="checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="autoTranslateLocation" checked />
+                <span>Auto-translate location names</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h4>Experience Level</h4>
+            <div class="checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="entry" value="entry" />
+                <span>Entry Level</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="mid" value="mid" />
+                <span>Mid Level</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="senior" value="senior" />
+                <span>Senior Level</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="executive" value="executive" />
+                <span>Executive</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h4>Salary Range</h4>
+            <div class="salary-range">
+              <div class="range-input">
+                <label>Min Salary ($)</label>
+                <input type="number" id="minSalary" placeholder="0" min="0" />
+              </div>
+              <div class="range-input">
+                <label>Max Salary ($)</label>
+                <input
+                  type="number"
+                  id="maxSalary"
+                  placeholder="No limit"
+                  min="0"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h4>Job Benefits</h4>
+            <div class="checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="healthInsurance" />
+                <span>Health Insurance</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="dentalInsurance" />
+                <span>Dental Insurance</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="visionInsurance" />
+                <span>Vision Insurance</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="retirementPlan" />
+                <span>Retirement Plan</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="paidTimeOff" />
+                <span>Paid Time Off</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="filters-actions">
+          <button class="btn-secondary" id="resetFilters">
+            Reset to Default
+          </button>
+          <button class="btn-primary" id="applyFilters">Apply Filters</button>
+        </div>
+      </div>
+
+      <div class="results-header">
+        <div class="results-count">
+          We've found <strong id="jobCount">0</strong> jobs!
+        </div>
+        <div class="sort-select">
+          Sort by:
+          <select id="sortSelect">
+            <option value="date">Date</option>
+            <option value="relevance">Relevance</option>
+            <option value="salary">Salary</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="loadingState" class="loading">Loading jobs...</div>
+
+      <div id="errorState" class="error" style="display: none">
+        Failed to load jobs. Please try again.
+      </div>
+
+      <div class="jobs-list" id="jobsList">
+        <!-- Jobs will be populated here -->
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal" id="modal">
+        <div class="modal-header">
+          <button class="modal-close" id="modalClose">×</button>
+        </div>
+        <div class="modal-content" id="modalContent">
+          <!-- Modal content will be populated here -->
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
