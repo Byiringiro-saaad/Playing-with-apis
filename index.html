@@ -22,9 +22,16 @@
           <div class="location-select">
             <select id="locationSelect">
               <option value="anywhere">Anywhere</option>
-              <option value="United States">United States</option>
-              <option value="New York">New York</option>
-              <option value="California">California</option>
+              <option value="Kenya">Kenya</option>
+              <option value="Tanzania">Tanzania</option>
+              <option value="Uganda">Uganda</option>
+              <option value="Ethiopia">Ethiopia</option>
+              <option value="Somalia">Somalia</option>
+              <option value="South Sudan">South Sudan</option>
+              <option value="Rwanda">Rwanda</option>
+              <option value="Burundi">Burundi</option>
+              <option value="Djibouti">Djibouti</option>
+              <option value="Eritrea">Eritrea</option>
               <option value="Remote">Remote</option>
             </select>
           </div>
@@ -206,6 +213,15 @@
 
       <div class="jobs-list" id="jobsList">
         <!-- Jobs will be populated here -->
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination" id="pagination" style="display: none">
+        <button class="pagination-btn" id="prevPage" disabled>Previous</button>
+        <div class="pagination-info">
+          <span id="currentPage">1</span> of <span id="totalPages">1</span>
+        </div>
+        <button class="pagination-btn" id="nextPage">Next</button>
       </div>
     </div>
 

@@ -6,6 +6,12 @@ class JobBoard {
     this.currentFilters = [];
     this.currentLocation = "";
 
+    // Pagination
+    this.currentPage = 1;
+    this.jobsPerPage = 10;
+    this.totalJobs = 0;
+    this.nextPageToken = null;
+
     // Default filter values
     this.filters = {
       employmentTypes: ["fulltime", "parttime", "intern", "contractor"],
@@ -164,6 +170,15 @@ class JobBoard {
         const jobId = jobCard.dataset.jobId;
         this.openJobModal(jobId);
       }
+    });
+
+    // Pagination
+    document.getElementById("prevPage").addEventListener("click", () => {
+      this.previousPage();
+    });
+
+    document.getElementById("nextPage").addEventListener("click", () => {
+      this.nextPage();
     });
 
     // Escape key to close modal
@@ -441,6 +456,46 @@ class JobBoard {
     this.loadJobs();
   }
 
+  // Pagination methods
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.renderJobs();
+      this.updatePagination();
+    }
+  }
+
+  nextPage() {
+    if (this.nextPageToken) {
+      this.loadJobs(this.currentPage + 1);
+    }
+  }
+
+  updatePagination() {
+    const pagination = document.getElementById("pagination");
+    const prevBtn = document.getElementById("prevPage");
+    const nextBtn = document.getElementById("nextPage");
+    const currentPageSpan = document.getElementById("currentPage");
+    const totalPagesSpan = document.getElementById("totalPages");
+
+    if (this.jobs.length === 0) {
+      pagination.style.display = "none";
+      return;
+    }
+
+    pagination.style.display = "flex";
+
+    // Calculate total pages (assuming 10 jobs per page)
+    const totalPages = Math.ceil(this.totalJobs / this.jobsPerPage);
+
+    currentPageSpan.textContent = this.currentPage;
+    totalPagesSpan.textContent = totalPages || 1;
+
+    // Update button states
+    prevBtn.disabled = this.currentPage <= 1;
+    nextBtn.disabled = !this.nextPageToken;
+  }
+
   debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -453,8 +508,14 @@ class JobBoard {
     };
   }
 
-  async loadJobs() {
+  async loadJobs(page = 1) {
     this.showLoading();
+
+    // Reset pagination if it's a new search
+    if (page === 1) {
+      this.currentPage = 1;
+      this.nextPageToken = null;
+    }
 
     try {
       // Build query parameters
@@ -512,6 +573,11 @@ class JobBoard {
         params.append("benefits", this.filters.benefits.join(";"));
       }
 
+      // Add pagination parameters
+      if (this.nextPageToken && page > 1) {
+        params.append("nextPage", this.nextPageToken);
+      }
+
       const url = `https://jobs-api14.p.rapidapi.com/v2/list?${params.toString()}`;
       console.log("API URL:", url);
       console.log("Parameters:", params.toString());
@@ -534,8 +600,20 @@ class JobBoard {
       }
 
       const data = await response.json();
-      this.jobs = data.jobs || [];
+
+      if (page === 1) {
+        this.jobs = data.jobs || [];
+      } else {
+        // Append new jobs for pagination
+        this.jobs = [...this.jobs, ...(data.jobs || [])];
+      }
+
+      this.totalJobs = data.totalJobs || this.jobs.length;
+      this.nextPageToken = data.nextPage || null;
+      this.currentPage = page;
+
       this.renderJobs();
+      this.updatePagination();
       this.hideLoading();
     } catch (error) {
       console.error("Error loading jobs:", error);
@@ -547,6 +625,7 @@ class JobBoard {
     document.getElementById("loadingState").style.display = "block";
     document.getElementById("errorState").style.display = "none";
     document.getElementById("jobsList").style.display = "none";
+    document.getElementById("pagination").style.display = "none";
   }
 
   hideLoading() {
@@ -564,7 +643,8 @@ class JobBoard {
     const jobsList = document.getElementById("jobsList");
     const jobCount = document.getElementById("jobCount");
 
-    jobCount.textContent = this.jobs.length;
+    // Show total jobs count, not just current page
+    jobCount.textContent = this.totalJobs || this.jobs.length;
 
     if (this.jobs.length === 0) {
       jobsList.innerHTML =
